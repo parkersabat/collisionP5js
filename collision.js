@@ -241,7 +241,7 @@
     
     render() {
       fill(this.colour[0],this.colour[1],this.colour[2]);
-      circle(this.x, this.y, 2*this.r);
+      circle(this.x, this.y, this.r);
     }
     
     isColliding(shape, func = function(){}) {
