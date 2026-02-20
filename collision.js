@@ -497,4 +497,29 @@
     }
     console.log(this[name].__doc);
   };
+  
+  const _image = p5.prototype.image;
+  p5.prototype.image = function(img, x, y, w, h, angle) {
+    if (arguments.length < 6) {
+      return _image.call(this, img, x, y, w, h);
+    }
+
+    w = w ?? img.width;
+    h = h ?? img.height;
+
+    this.push();
+
+    if (this._renderer._imageMode === this.CENTER) {
+      this.translate(x, y);
+    } else { 
+      this.translate(x + w / 2, y + h / 2);
+    }
+
+    this.rotate(angle);
+
+    this.imageMode(this.CENTER);
+    _image.call(this, img, 0, 0, w, h);
+
+    this.pop();
+  };
 })();
